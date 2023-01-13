@@ -13,7 +13,7 @@ node {
        
         }
 	  stage('Push') {
-       	    docker.withRegistry('https://hub.docker.com','user'){ 
+       	    docker.withRegistry('https://hub.docker.com','darbi'){ 
     	    img.push 'latest'
 	    img.push()  
         }
