@@ -1,17 +1,22 @@
 node {
-    def app
+    def registryProjet='https://hub.docker.com/repository/docker/darbi/testpush/general'
+    def IMAGE="${registryProjet}:version-${env.BUILD_ID}"
 	 stage('Clone') {
             checkout scm
          }
- 	stage('Build') {
-       	    app=docker.build("darbi/minikube:tagname")
+ 	def img =stage('Build') {
+       	    docker.build('$IMAGE", '.')
         }
-	 stage('Run image') {
-       	    docker.image("darbi/minikube:tagname").withRun('-p 3001:88'){ c ->
-   	    sh 'docker ps'
+	 stage('Run') {
+       	    img.withRun('-name run-BUILD_ID -p 3001:88'){ c ->
     	    sh 'curl localhost'
        
         }
+	  stage('Push') {
+       	    docker.withRegistry('https://hub.docker.com','user'){ 
+    	    img.push 'latest'
+	    img.push()  
+        }
 }
 }
-
+ 
