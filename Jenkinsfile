@@ -13,7 +13,7 @@ node {
        
         }
 	  stage('Push') {
-       	    withDockerRegistry([ credentialsId: "darbi", url: "https://hub.docker.com/repository/docker/darbi/testpush" ]) { 
+       	    withDockerRegistry([ credentialsId: "darbi", url: "https://hub.docker.com/" ]) { 
     	    img.push 'latest'
 	    img.push()  
         }
