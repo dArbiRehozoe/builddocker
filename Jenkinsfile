@@ -1,6 +1,7 @@
 node {
     def registryProjet='https://hub.docker.com/repository/docker/darbi/testpush/general'
     def IMAGE="testpush:version-${env.BUILD_ID}"
+    def DOCKERHUB_CREDENTIALS=credentials('dockerhub')
 	 stage('Clone') {
             checkout scm
          }
@@ -12,11 +13,13 @@ node {
     	    sh 'curl localhost'
        
         }
-	  stage('Push') {
-       	    withDockerRegistry([ credentialsId: "darbi", url: "https://hub.docker.com/" ]) { 
-    	    img.push 'latest'
-	    img.push()  
-        }
+	stage('Login') {
+		sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
+	  }
+
+	stage('Push') {
+		sh 'docker push darbi/testpush:tagname'	
+	}
 }
 }
 }
