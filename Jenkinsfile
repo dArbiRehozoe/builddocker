@@ -1,6 +1,6 @@
 node {
     def registryProjet='https://hub.docker.com/repository/docker/darbi/testpush/general'
-    def IMAGE="${registryProjet}:version-${env.BUILD_ID}"
+    def IMAGE="testpush:version-${env.BUILD_ID}"
 	 stage('Clone') {
             checkout scm
          }
