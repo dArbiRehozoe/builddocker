@@ -8,7 +8,7 @@ node {
        	    docker.build("$IMAGE", '.')
         }
 	 stage('Run') {
-       	    img.withRun('-name -p 3001:88'){ c ->
+       	    img.withRun('-p 3001:88'){ c ->
     	    sh 'curl localhost'
        
         }
