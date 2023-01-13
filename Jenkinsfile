@@ -5,7 +5,7 @@ node {
             checkout scm
          }
  	def img =stage('Build') {
-       	    docker.build('$IMAGE", '.')
+       	    docker.build("$IMAGE", '.')
         }
 	 stage('Run') {
        	    img.withRun('-name run-BUILD_ID -p 3001:88'){ c ->
